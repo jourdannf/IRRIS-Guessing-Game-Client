@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import Photo from './components/Photo'
+import PhotoContainer from './components/PhotoGrid'
 import axios from 'axios'
 import './App.css'
 
@@ -92,15 +93,17 @@ function App() {
 
   if (localStorage.getItem("triesComplete") == "false"){
     return (
-      <>
+      <div className="h-screen mx-auto w-9/12 text-center">
         <h1>IRRIS Guessing Game</h1>
   
-        {pictures.map((picLink, i) => {
-          return <Photo key={i} link={picLink} num={i} guess={guess} updateGuess={setGuess} answerCheck={correctGuess} answer={answer}/>
-        })}
+        <PhotoContainer>
+          {pictures.map((picID, i) => {
+            return <Photo key={picID} publicID={picID} num={i} guess={guess} updateGuess={setGuess} answerCheck={correctGuess} answer={answer}/>
+          })}
+        </PhotoContainer>
         
-        <input type='submit' onClick={submitGuess} />
-      </>
+        <input className="bg-black text-white w-1/2 py-3 mt-5 rounded hover:bg-gray-500" type='submit' onClick={submitGuess} />
+      </div>
       
     )
   }
