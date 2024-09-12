@@ -4,7 +4,7 @@ import { Cloudinary } from "@cloudinary/url-gen/index";
 import { fill, scale } from "@cloudinary/url-gen/actions/resize";
 import { Resize } from "@cloudinary/url-gen/actions/resize";
 
-export default function Photo ({num, publicID, guess, updateGuess, answerCheck, answer}) {
+export default function Photo ({num, publicID, guess, updateGuess, answerCheck, answer, triesComplete}) {
 
     function selectMember (e) {
         
@@ -37,6 +37,10 @@ export default function Photo ({num, publicID, guess, updateGuess, answerCheck, 
         return string[0].toUpperCase() + string.slice(1).toLowerCase();
     }
 
+    function isInGuess(name) {
+        return JSON.parse(localStorage.guess)[num] == name
+    }
+
     const cld = new Cloudinary({
         cloud: {
             cloudName: "djkg6bufv"
@@ -46,21 +50,23 @@ export default function Photo ({num, publicID, guess, updateGuess, answerCheck, 
 
     const memberImg = cld.image(publicID);
     return (
-        <div className="basis-1/5 text-center">
+        <div className="text-center shrink-0">
         
-            <AdvancedImage className="rounded-md mx-auto" width="300" cldImg={memberImg} />
+            <AdvancedImage className="rounded-md mx-auto" width="200" cldImg={memberImg} />
             {/* <img src={publicID} alt={`Cropped Photo of Member ${num + 1}`} /> */}
             <br />
 
             {answerCheck[num] 
                 ? <h4 className="text-green-800 font-bold"> {titleCase(answer[num])} </h4> 
-                : <select onChange={selectMember}> 
+                : triesComplete == "true" 
+                    ? <h4 className="text-red-600 font-bold"> {titleCase(JSON.parse(localStorage.guess)[num])} </h4> :
+                    <select onChange={selectMember}> 
                     <option value="default"> Please select a member</option>
-                    <option value="i.l">I.L</option>
-                    <option value="liv">Liv</option>
-                    <option value="yunseul">Yunseul</option>
-                    <option value="nina">Nina</option>
-                    <option value="nobody">Nobody</option>
+                    <option value="i.l" disabled={isInGuess("i.l")}>I.L</option>
+                    <option value="liv" disabled={isInGuess("liv")}>Liv</option>
+                    <option value="yunseul" disabled={isInGuess("yunseul")}>Yunseul</option>
+                    <option value="nina" disabled={isInGuess("nina")}>Nina</option>
+                    <option value="nobody" disabled={isInGuess("nobody")}>Nobody</option>
                 </select>}
             
            

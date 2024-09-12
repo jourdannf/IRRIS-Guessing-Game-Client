@@ -2,18 +2,22 @@ import { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import Photo from './components/Photo'
-import PhotoContainer from './components/PhotoGrid'
+import PhotoContainer from './components/PhotoContainer'
 import axios from 'axios'
 import './App.css'
 
 function App() {
 
+  console.log(JSON.parse(localStorage.getItem("guessState")))
+
   const [dateNow, setDate] = useState(processDate(new Date()));
   const [pictures, setPictures] = useState([]);
   const [answer, setAnswers] = useState([]);
   const [guess, setGuess] = useState(["","","","",""]);
-  const [tries, setTries] = useState(3);
-  const [correctGuess, setCorrectGuess] = useState(localStorage.getItem("guessState").split(",").map(e => Number(e)))
+  const [tries, setTries] = useState(localStorage.triesLeft);
+  const [correctGuess, setCorrectGuess] = useState(JSON.parse(localStorage.getItem("guessState")))
+  const [solved, setSovled] = useState(localStorage.solved)
+  
 
   useEffect(() => {
 
@@ -36,7 +40,7 @@ function App() {
     }
 
     const finalGuess = guess.map((e, i) => {
-      if (localStorage.guessState.split(",")[i] == "1"){
+      if (JSON.parse(localStorage.guessState)[i] == "1"){
         return answer[i];
       }
 
@@ -52,14 +56,17 @@ function App() {
       localStorage.setItem("triesComplete", true);
     }
 
-    localStorage.setItem("guess", guess);
+    localStorage.setItem("guess", JSON.stringify(guess));
     localStorage.setItem("triesLeft", tries-1);
 
     setTries(tries - 1);
 
     if ((finalGuess[0] == answer[0]) && (finalGuess[1] == answer[1]) && (finalGuess[2] == answer[2]) && (finalGuess[3] == answer[3]) && (finalGuess[4] == answer[4])) {
       console.log("You're correct!");
-      setCorrectGuess([1,1,1,1,1]);
+      setCorrectGuess(JSON.stringify([1,1,1,1,1]));
+      localStorage.solved = true;
+      setSovled(true);
+      localStorage.guessState = JSON.stringify([1,1,1,1,1])
       return;
     }else {
       console.log("You're wrong :(");
@@ -70,7 +77,7 @@ function App() {
   
         return 0;
       });
-      localStorage.setItem("guessState", newGuess);
+      localStorage.setItem("guessState", JSON.stringify(newGuess));
       setCorrectGuess(newGuess);
     }
 
@@ -84,21 +91,24 @@ function App() {
     localStorage.setItem("date", dateNow);
     localStorage.setItem("triesComplete", false);
     localStorage.setItem("triesLeft", 3);
-    localStorage.setItem("guess", ["","","","","",""]);
-    localStorage.setItem("guessState", [false, false, false, false, false])
+    localStorage.setItem("guess", JSON.stringify(["","","","","",""]));
+    localStorage.setItem("guessState", JSON.stringify([false, false, false, false, false]));
+    localStorage.setItem("solved", false);
     return true;
   }
 
   
 
-  if (localStorage.getItem("triesComplete") == "false"){
+ 
     return (
       <div className="h-screen mx-auto w-9/12 text-center">
         <h1>IRRIS Guessing Game</h1>
+
+        <h3>Tries Left: {localStorage.triesLeft}</h3>
   
         <PhotoContainer>
           {pictures.map((picID, i) => {
-            return <Photo key={picID} publicID={picID} num={i} guess={guess} updateGuess={setGuess} answerCheck={correctGuess} answer={answer}/>
+            return <Photo key={picID} publicID={picID} num={i} guess={guess} updateGuess={setGuess} answerCheck={correctGuess} answer={answer} triesComplete={localStorage.triesComplete}/>
           })}
         </PhotoContainer>
         
@@ -106,7 +116,7 @@ function App() {
       </div>
       
     )
-  }
+  
 
   
 }
