@@ -3,9 +3,11 @@ import { CloudinaryImage } from "@cloudinary/url-gen/index";
 import { Cloudinary } from "@cloudinary/url-gen/index";
 import { fill, scale } from "@cloudinary/url-gen/actions/resize";
 import { Resize } from "@cloudinary/url-gen/actions/resize";
+import { useState } from "react";
 
-export default function Photo ({num, publicID, guess, updateGuess, answerCheck, answer, triesComplete}) {
+export default function Photo ({num, publicID, guess, updateGuess, answerCheck, answer, triesComplete, submitted, setSubmit, freqArr}) {
 
+    
     function selectMember (e) {
         
         if (e.target.value == "default") {
@@ -37,10 +39,6 @@ export default function Photo ({num, publicID, guess, updateGuess, answerCheck, 
         return string[0].toUpperCase() + string.slice(1).toLowerCase();
     }
 
-    function isInGuess(name) {
-        return JSON.parse(localStorage.guess)[num] == name
-    }
-
     const cld = new Cloudinary({
         cloud: {
             cloudName: "djkg6bufv"
@@ -62,11 +60,11 @@ export default function Photo ({num, publicID, guess, updateGuess, answerCheck, 
                     ? <h4 className="text-red-600 font-bold"> {titleCase(JSON.parse(localStorage.guess)[num])} </h4> :
                     <select onChange={selectMember}> 
                     <option value="default"> Please select a member</option>
-                    <option value="i.l" disabled={isInGuess("i.l")}>I.L</option>
-                    <option value="liv" disabled={isInGuess("liv")}>Liv</option>
-                    <option value="yunseul" disabled={isInGuess("yunseul")}>Yunseul</option>
-                    <option value="nina" disabled={isInGuess("nina")}>Nina</option>
-                    <option value="nobody" disabled={isInGuess("nobody")}>Nobody</option>
+                    <option value="i.l" disabled={freqArr[num][0]}>I.L</option>
+                    <option value="liv" disabled={freqArr[num][1]}>Liv</option>
+                    <option value="yunseul" disabled={freqArr[num][2]}>Yunseul</option>
+                    <option value="nina" disabled={freqArr[num][3]}>Nina</option>
+                    <option value="nobody" disabled={freqArr[num][4]}>Nobody</option>
                 </select>}
             
            
