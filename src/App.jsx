@@ -19,7 +19,7 @@ function App() {
   useEffect(() => {
 
     (async () => {
-      const result = await axios.get(`http://localhost:3001/v1/puzzle/${new Date(dateNow).toISOString().split('T')[0]}`)
+      const result = await axios.get(`https://irris-guessing-game-server.onrender.com/v1/puzzle/${new Date(dateNow).toISOString().split('T')[0]}`)
       const puzzle = result.data;
 
       setPictures(puzzle.answer.pictures);
