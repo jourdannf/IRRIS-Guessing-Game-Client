@@ -16,9 +16,6 @@ function App() {
   const [correctGuess, setCorrectGuess] = useState(JSON.parse(localStorage.getItem("guessState")));
   const [freqArr, setFreqArr] = useState(JSON.parse(localStorage.freqArr));
 
-  let submitted = false;
-
-
   useEffect(() => {
 
     (async () => {
@@ -124,7 +121,7 @@ function App() {
     localStorage.setItem("triesComplete", false);
     localStorage.setItem("triesLeft", 3);
     localStorage.setItem("guess", JSON.stringify(["","","","","",""]));
-    localStorage.setItem("guessState", JSON.stringify([false, false, false, false, false]));
+    localStorage.setItem("guessState", JSON.stringify([0,0,0,0,0]));
     localStorage.setItem("solved", false);
     localStorage.setItem("freqArr", JSON.stringify([[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]));
     return true;
@@ -134,18 +131,21 @@ function App() {
 
  
     return (
-      <div className="h-screen mx-auto w-9/12 text-center">
-        <h1>IRRIS Guessing Game</h1>
+      <div className="h-100 mx-auto w-9/12 text-center text-lg relative">
+        <div className="relative top-1/2">
+          <h1 className="relative top-10 text-5xl font-bold">IRRIS Guessing Game</h1>
 
-        <h3>Tries Left: {localStorage.triesLeft}</h3>
-  
-        <PhotoContainer>
-          {pictures.map((picID, i) => {
-            return <Photo key={picID} publicID={picID} num={i} guess={guess} updateGuess={setGuess} answerCheck={correctGuess} answer={answer} triesComplete={localStorage.triesComplete} submitted={submitted} freqArr={freqArr} />
-          })}
-        </PhotoContainer>
-        
-        <input className="bg-black text-white w-1/2 py-3 mt-5 rounded hover:bg-gray-500" type='submit' onClick={submitGuess} />
+          <h3 className="fixed right-5 top-5 font-semibold">Tries Left: {localStorage.triesLeft}</h3>
+
+          <PhotoContainer>
+            {pictures.map((picID, i) => {
+              return <Photo key={picID} publicID={picID} num={i} guess={guess} updateGuess={setGuess} answerCheck={correctGuess} answer={answer} triesComplete={localStorage.triesComplete} freqArr={freqArr} />
+            })}
+          </PhotoContainer>
+
+          <input className="bg-black text-white w-1/2 py-3 mt-5 rounded hover:bg-gray-500 hover:cursor-pointer" type='submit' onClick={submitGuess} />
+        </div>
+       
       </div>
       
     )

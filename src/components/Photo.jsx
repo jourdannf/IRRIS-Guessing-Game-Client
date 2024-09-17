@@ -5,7 +5,7 @@ import { fill, scale } from "@cloudinary/url-gen/actions/resize";
 import { Resize } from "@cloudinary/url-gen/actions/resize";
 import { useState } from "react";
 
-export default function Photo ({num, publicID, guess, updateGuess, answerCheck, answer, triesComplete, submitted, setSubmit, freqArr}) {
+export default function Photo ({num, publicID, guess, updateGuess, answerCheck, answer, triesComplete, freqArr}) {
 
     
     function selectMember (e) {
@@ -58,7 +58,7 @@ export default function Photo ({num, publicID, guess, updateGuess, answerCheck, 
                 ? <h4 className="text-green-800 font-bold"> {titleCase(answer[num])} </h4> 
                 : triesComplete == "true" 
                     ? <h4 className="text-red-600 font-bold"> {titleCase(JSON.parse(localStorage.guess)[num])} </h4> :
-                    <select onChange={selectMember}> 
+                    <select onChange={selectMember} className="hover:cursor-pointer"> 
                     <option value="default"> Please select a member</option>
                     <option value="i.l" disabled={freqArr[num][0]}>I.L</option>
                     <option value="liv" disabled={freqArr[num][1]}>Liv</option>
