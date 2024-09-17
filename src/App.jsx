@@ -14,7 +14,7 @@ function App() {
   const [guess, setGuess] = useState(["","","","",""]);
   const [tries, setTries] = useState(localStorage.triesLeft);
   const [correctGuess, setCorrectGuess] = useState(localStorage.guessState ? JSON.parse(localStorage.getItem("guessState")) : []);
-  const [freqArr, setFreqArr] = useState(localStorage.freqArr ? JSON.parse(localStorage.freqArr) : []);
+  const [freqArr, setFreqArr] = useState(localStorage.freqArr ? JSON.parse(localStorage.freqArr) : [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]);
 
   useEffect(() => {
 
