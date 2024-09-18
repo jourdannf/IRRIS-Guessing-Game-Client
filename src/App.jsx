@@ -22,7 +22,7 @@ function App() {
   useEffect(() => {
 
     (async () => {
-      const result = await axios.get(`https://irris-guessing-game-server.onrender.com/v1/puzzle/${new Date(dateNow).toISOString().split('T')[0]}`)
+      const result = await axios.get(`https://irris-guessing-game-server.onrender.com/v1/puzzle/${new Date(dateNow.replace(/-/g, '/')).toISOString().split('T')[0]}`)
       if (result.status != 200) {
         setDataAvail(false);
       }else {
