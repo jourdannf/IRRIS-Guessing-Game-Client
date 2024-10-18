@@ -4,9 +4,23 @@ import { Cloudinary } from "@cloudinary/url-gen/index";
 import { fill, scale } from "@cloudinary/url-gen/actions/resize";
 import { Resize } from "@cloudinary/url-gen/actions/resize";
 import { useState } from "react";
+import Tabs from "./Tabs";
+
+import ilLogo from "../assets/il_lapis_lazuli.svg"
+import livLogo from "../assets/liv_garnet.svg"
+import ninaLogo from "../assets/nina_labradorite.svg"
+import noneLogo from "../assets/none_logo.svg"
+import yunseulLogo from "../assets/yunseul_rhodonite.svg"
 
 export default function Photo ({num, publicID, guess, updateGuess, answerCheck, answer, triesComplete, freqArr}) {
 
+    const tabData = [
+        {label: ilLogo},
+        {label: livLogo},
+        {label: yunseulLogo},
+        {label: ninaLogo},
+        {label: noneLogo}
+    ]
     
     function selectMember (e) {
         
@@ -48,13 +62,15 @@ export default function Photo ({num, publicID, guess, updateGuess, answerCheck, 
 
     const memberImg = cld.image(publicID);
     return (
-        <div className="text-center shrink-0">
+        <div className="shrink-0">
         
-            <AdvancedImage className="rounded-md mx-auto" width="200" cldImg={memberImg} />
+            <AdvancedImage className="rounded-md mx-auto" width="268" cldImg={memberImg} />
             {/* <img src={publicID} alt={`Cropped Photo of Member ${num + 1}`} /> */}
             <br />
 
-            {answerCheck[num] 
+            <Tabs tabs={tabData} width="268px" />
+
+            {/* {answerCheck[num] 
                 ? <h4 className="text-green-800 font-bold"> {titleCase(answer[num])} </h4> 
                 : triesComplete == "true" 
                     ? <h4 className="text-red-600 font-bold"> {titleCase(JSON.parse(localStorage.guess)[num])} </h4> :
@@ -65,7 +81,7 @@ export default function Photo ({num, publicID, guess, updateGuess, answerCheck, 
                     <option value="yunseul" disabled={freqArr[num][2]}>Yunseul</option>
                     <option value="nina" disabled={freqArr[num][3]}>Nina</option>
                     <option value="nobody" disabled={freqArr[num][4]}>Nobody</option>
-                </select>}
+                </select>} */}
             
            
         </div>

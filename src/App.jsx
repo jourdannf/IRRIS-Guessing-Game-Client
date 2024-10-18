@@ -22,8 +22,12 @@ function App() {
   useEffect(() => {
 
     (async () => {
-      const result = await axios.get(`https://irris-guessing-game-server.onrender.com/v1/puzzle/${new Date(dateNow.replace(/-/g, '/')).toISOString().split('T')[0]}`)
-      if (result.status != 200) {
+      const result = await axios.get(`http://localhost:3001/v1/puzzle/${new Date(dateNow.replace(/-/g, '/')).toISOString().split('T')[0]}`)
+        .catch((e) => {
+          console.log(e);
+        })
+
+      if (!result) {
         setDataAvail(false);
       }else {
         const puzzle = result.data;
@@ -138,7 +142,7 @@ function App() {
  
     return (
       dataAvail ?
-        <div className="h-100 mx-auto w-9/12 text-center text-lg relative">
+        <div className="h-100 mx-auto w-full text-center text-lg relative sm:w-9/12">
           <div className="relative top-1/2">
             <h1 className="relative top-10 text-5xl font-bold">IRRIS Guessing Game</h1>
 
