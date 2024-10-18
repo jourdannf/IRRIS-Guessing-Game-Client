@@ -13,11 +13,13 @@ function App() {
   const [dateNow, setDate] = useState(processDate(new Date()));
   const [pictures, setPictures] = useState([]);
   const [answer, setAnswers] = useState([]);
-  const [guess, setGuess] = useState(["","","","",""]);
+  const [guess, setGuess] = useState(["i.l","i.l","i.l","i.l","i.l"]);
   const [tries, setTries] = useState(localStorage.triesLeft);
   const [correctGuess, setCorrectGuess] = useState(localStorage.guessState ? JSON.parse(localStorage.getItem("guessState")) : []);
   const [freqArr, setFreqArr] = useState(localStorage.freqArr ? JSON.parse(localStorage.freqArr) : [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]);
   const [dataAvail, setDataAvail] = useState(true);
+
+  console.log(guess);
 
   useEffect(() => {
 

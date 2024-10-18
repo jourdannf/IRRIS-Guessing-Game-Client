@@ -68,7 +68,7 @@ export default function Photo ({num, publicID, guess, updateGuess, answerCheck, 
             {/* <img src={publicID} alt={`Cropped Photo of Member ${num + 1}`} /> */}
             <br />
 
-            <Tabs tabs={tabData} width="268px" />
+            <Tabs tabs={tabData} width="268px" photoIndex={num} guess={guess} updateGuess={updateGuess} />
 
             {/* {answerCheck[num] 
                 ? <h4 className="text-green-800 font-bold"> {titleCase(answer[num])} </h4> 
