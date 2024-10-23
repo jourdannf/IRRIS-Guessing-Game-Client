@@ -13,11 +13,12 @@ function App() {
   const [dateNow, setDate] = useState(processDate(new Date()));
   const [pictures, setPictures] = useState([]);
   const [answer, setAnswers] = useState([]);
-  const [guess, setGuess] = useState(["i.l","i.l","i.l","i.l","i.l"]);
+  const [guess, setGuess] = useState(JSON.parse(localStorage.getItem("guess")));
   const [tries, setTries] = useState(localStorage.triesLeft);
   const [correctGuess, setCorrectGuess] = useState(localStorage.guessState ? JSON.parse(localStorage.getItem("guessState")) : []);
   const [freqArr, setFreqArr] = useState(localStorage.freqArr ? JSON.parse(localStorage.freqArr) : [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]);
   const [dataAvail, setDataAvail] = useState(true);
+  const [showScore, setScore] = useState(localStorage.getItem("score"));
 
   console.log(guess);
 
@@ -69,6 +70,18 @@ function App() {
 
   }
 
+  function calcScore (guess, answer) {
+    let score = 0;
+
+    for (let i = 0; i < guess.length; i++){
+      if (guess[i] == answer[i]){
+        score += 1;
+      }
+    }
+
+    return score;
+  }
+
   function submitGuess (e) {
     e.preventDefault();
     if (localStorage.getItem("triesComplete") == "true"){
@@ -92,24 +105,33 @@ function App() {
     if (localStorage.getItem("triesLeft") == 1){
       localStorage.setItem("triesComplete", true);
     }
-
     
-    const historyArr = addFreq(freqArr);
-    localStorage.freqArr = JSON.stringify(historyArr);
-    setFreqArr(historyArr);
+    // const historyArr = addFreq(freqArr);
+    // localStorage.freqArr = JSON.stringify(historyArr);
+    // setFreqArr(historyArr);
 
     localStorage.setItem("guess", JSON.stringify(guess));
     localStorage.setItem("triesLeft", tries-1);
 
     setTries(tries - 1);
 
-    if ((finalGuess[0] == answer[0]) && (finalGuess[1] == answer[1]) && (finalGuess[2] == answer[2]) && (finalGuess[3] == answer[3]) && (finalGuess[4] == answer[4])) {
+    if ((guess[0] == answer[0]) && (guess[1] == answer[1]) && (guess[2] == answer[2]) && (guess[3] == answer[3]) && (guess[4] == answer[4])) {
       console.log("You're correct!");
+      console.log((answer[0]))
+      console.log(answer)
       setCorrectGuess(JSON.stringify([1,1,1,1,1]));
       localStorage.solved = true;
       localStorage.guessState = JSON.stringify([1,1,1,1,1])
+      localStorage.setItem("score", false)
+      setScore("false");
       return;
     }else {
+      if (localStorage.getItem("score") == "false"){
+        console.log("It's false")
+        localStorage.setItem("score", true);
+        setScore("true");
+      }
+
       console.log("You're wrong :(");
       const newGuess = correctGuess.map((elem, i) => {
         if (finalGuess[i] == answer[i]){
@@ -120,6 +142,7 @@ function App() {
       });
       localStorage.setItem("guessState", JSON.stringify(newGuess));
       setCorrectGuess(newGuess);
+      
     }
 
   }
@@ -132,14 +155,15 @@ function App() {
     localStorage.setItem("date", dateNow);
     localStorage.setItem("triesComplete", false);
     localStorage.setItem("triesLeft", 3);
-    localStorage.setItem("guess", JSON.stringify(["","","","","",""]));
+    localStorage.setItem("guess", JSON.stringify(["i.l","i.l","i.l","i.l","i.l"]));
     localStorage.setItem("guessState", JSON.stringify([0,0,0,0,0]));
     localStorage.setItem("solved", false);
     localStorage.setItem("freqArr", JSON.stringify([[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]));
+    localStorage.setItem("score", false);
     return true;
   }
 
-  
+  const ans = JSON.parse(localStorage.getItem("guess"));
 
  
     return (
@@ -155,6 +179,12 @@ function App() {
                 return <Photo key={picID} publicID={picID} num={i} guess={guess} updateGuess={setGuess} answerCheck={correctGuess} answer={answer} triesComplete={localStorage.triesComplete} freqArr={freqArr} />
               })}
             </PhotoContainer>
+
+            {showScore == "true" && 
+            <div>
+              Incorrect: Score is {(ans[0] == answer[0]) + (ans[1] == answer[1]) + (ans[2] == answer[2]) + (ans[3] == answer[3]) + (ans[4] == answer[4])}/5
+            </div>
+            }
 
             <input className="bg-black text-white w-1/2 py-3 mt-5 rounded hover:bg-gray-500 hover:cursor-pointer" type='submit' onClick={submitGuess} />
           </div>
