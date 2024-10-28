@@ -69,6 +69,7 @@ export default function Photo ({num, publicID, guess, updateGuess, answerCheck, 
             <br />
 
             <Tabs tabs={tabData} width="268px" photoIndex={num} guess={guess} updateGuess={updateGuess} />
+            <br />
 
             {/* {answerCheck[num] 
                 ? <h4 className="text-green-800 font-bold"> {titleCase(answer[num])} </h4> 
