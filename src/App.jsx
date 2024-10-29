@@ -16,6 +16,8 @@ import ninaLogo from "./assets/nina_labradorite.svg"
 import noneLogo from "./assets/none_logo.svg"
 import yunseulLogo from "./assets/yunseul_rhodonite.svg"
 
+import Modal from './components/Modal'
+
 function App() {
 
   const [dateNow, setDate] = useState(processDate(new Date()));
@@ -29,7 +31,13 @@ function App() {
   const [showScore, setScore] = useState(localStorage.getItem("score"));
   const [showModal, setShowModal] = useState(true);
 
-  
+  const logoMap = {
+    "i.l": ilLogo,
+    "liv": livLogo,
+    "yunseul": yunseulLogo,
+    "nina": ninaLogo,
+    "nobody": livLogo
+}
 
   useEffect(() => {
 
@@ -51,6 +59,14 @@ function App() {
     })();
     
   }, []);
+
+  function titleCase(string){
+    if (string == "i.l"){
+        return "I.L";
+    }
+
+    return string[0].toUpperCase() + string.slice(1).toLowerCase();
+  }
   
   //Function that adds to the frequency chart for each guess for each photo
   //Keeps track of the members you've already guessed for each photo
@@ -222,52 +238,12 @@ function App() {
 
           {/* Modal Wrapper */}
 
-          <div className={`fixed z-10 inset-0 ${showModal ? "" : "hidden"}`}  >
-            <div className="flex itmes-center justify-center bg-gray-500 bg-opacity-75 transition-all h-screen place-items-center w-screen" onClick={() => setShowModal(!showModal)}>
-
-              {/* Modal Box */}
-              <div className="bg-white px-10 rounded text-left text-sm h-3/4 relative w-screen sm:w-[447px] sm:h-[500px] overflow-scroll" onClick={e => e.stopPropagation()}>
-
-                <button type="button" className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-529 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 absolute right-2 top-2" onClick={() => setShowModal(!showModal)}>
-                  <span className="sr-only">Close menu</span>
-                  {/* Heroicon name: outline/x */}
-                  <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-
-                
-                <h2 className="text-3xl mb-2 mt-20 font-lilita">HOW TO PLAY</h2>
-
-                <p className='text-base'>View the photos.</p>
-                <p className='text-base'>Guess the IRRIS member featured in each photo using the picture key based off their representative stones below.</p>
-                <p className='text-base'>Submit your answer.</p>
-                <p className='text-base'>You get three tries.</p>
-
-                <br/>
-
-                <h3 className="text-3xl mb-2 mt-9 font-lilita">PICTURE KEY</h3>
-
-                <div className='flex flex-wrap'>
-                  <div className='text-xl w-28'><img src={ilLogo} alt="" width="40px" className='inline' /> I.L </div>
-                  <div className='text-xl w-28'><img src={livLogo} alt="" width="40px" className="inline" /> Liv </div>
-                  <div className='text-xl w-28'><img src={yunseulLogo} alt="" width="40px" className="inline" /> Yunseul </div>
-                  <div className='text-xl w-28'><img src={ninaLogo} alt="" width="40px" className="inline" /> Nina </div>
-                  <div className='text-xl w-28'><img src={ninaLogo} alt="" width="40px" className="inline" /> Neither </div>
-                  
-                  
-                  
-                </div>
-                
-                
-              </div>
-            </div>
-          </div>
+          <Modal showModal={showModal} setShowModal={setShowModal} logoMap={logoMap} />
         
         </div>
         : !dataAvail ? <ComingSoonPage /> :
 
-        localStorage.solved == "true" ? <WinnerPage /> : <LoserPage />
+        localStorage.solved == "true" ? <WinnerPage amountTries={localStorage.triesLeft} logoMap={logoMap} showModal={showModal} setShowModal={setShowModal} /> : <LoserPage answer={answer} logoMap={logoMap} showModal={showModal} setShowModal={setShowModal} />
       
     )
   
