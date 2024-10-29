@@ -214,7 +214,7 @@ function App() {
             </div>
             }
 
-            <input className={`bg-black text-white w-3/4 sm:w-1/2 py-3 mt-5 rounded hover:bg-gray-500 hover:cursor-pointer ${showModal ? "blur": ""} mb-10 sm:mb-0 text-lg font-bold`} type='submit' onClick={submitGuess} />
+            <input className={`bg-fuchsia-950 text-white w-3/4 sm:w-1/2 py-3 mt-5 rounded hover:bg-fuchsia-800 hover:cursor-pointer ${showModal ? "blur": ""} mb-10 sm:mb-0 text-lg font-bold`} type='submit' onClick={submitGuess} />
 
           </div>
           
