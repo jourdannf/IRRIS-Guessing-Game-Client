@@ -13,8 +13,8 @@ import { data } from 'autoprefixer'
 import ilLogo from "./assets/il_lapis_lazuli.svg"
 import livLogo from "./assets/liv_garnet.svg"
 import ninaLogo from "./assets/nina_labradorite.svg"
-import noneLogo from "./assets/none_logo.svg"
 import yunseulLogo from "./assets/yunseul_rhodonite.svg"
+import noneLogo from "./assets/black_onyx_.svg"
 
 import Modal from './components/Modal'
 import Header from './components/Header'
@@ -30,14 +30,14 @@ function App() {
   const [freqArr, setFreqArr] = useState(localStorage.freqArr ? JSON.parse(localStorage.freqArr) : [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]);
   const [dataAvail, setDataAvail] = useState(true);
   const [showScore, setScore] = useState(localStorage.getItem("score"));
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(JSON.parse(localStorage.getItem("showModal")));
 
   const logoMap = {
     "i.l": ilLogo,
     "liv": livLogo,
     "yunseul": yunseulLogo,
     "nina": ninaLogo,
-    "nobody": livLogo
+    "neither": noneLogo
 }
 
   useEffect(() => {
@@ -186,6 +186,7 @@ function App() {
     localStorage.setItem("solved", false);
     localStorage.setItem("freqArr", JSON.stringify([[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]));
     localStorage.setItem("score", false);
+    localStorage.setItem("showModal", 1);
     return true;
   }
 

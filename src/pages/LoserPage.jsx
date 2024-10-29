@@ -21,7 +21,7 @@ export default function LoserPage ({answer, logoMap, showModal, setShowModal}) {
                 <div>
                 <p className="font-bold text-2xl mb-5">Today's Answer:</p>
                 {answer.map((e,i) => {
-                    return <img src={logoMap[e]} alt="" className='inline mx-1 w-10 sm:w-[6%]' />;
+                    return <img src={logoMap[e]} alt="" className='inline mx-1 w-10 sm:w-[5%]' />;
                 })}
                 </div>
             </div>

@@ -1,4 +1,5 @@
 export default function Modal ({showModal, logoMap, setShowModal}) {
+    console.log(showModal);
     function titleCase(string){
         if (string == "i.l"){
             return "I.L";
@@ -9,12 +10,18 @@ export default function Modal ({showModal, logoMap, setShowModal}) {
 
     return (
         <div className={`fixed z-10 inset-0 ${showModal ? "" : "hidden"}`}  >
-            <div className="flex itmes-center justify-center bg-gray-500 bg-opacity-75 transition-all h-screen place-items-center w-screen" onClick={() => setShowModal(!showModal)}>
+            <div className="flex itmes-center justify-center bg-gray-500 bg-opacity-75 transition-all h-screen place-items-center w-screen" onClick={() => setShowModal(() => {
+                localStorage.showModal = 1;
+                return 1;
+            })}>
 
                 {/* Modal Box */}
                 <div className="bg-white px-10 rounded text-left text-sm h-3/4 relative w-screen sm:w-[447px] sm:h-[500px] overflow-scroll" onClick={e => e.stopPropagation()}>
 
-                    <button type="button" className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-529 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 absolute right-2 top-2" onClick={() => setShowModal(!showModal)}>
+                    <button type="button" className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-529 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 absolute right-2 top-2" onClick={() => setShowModal(() => {
+                localStorage.showModal = 0;
+                return 0;
+            })}>
                     <span className="sr-only">Close menu</span>
                     {/* Heroicon name: outline/x */}
                     <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">

@@ -9,7 +9,7 @@ import Tabs from "./Tabs";
 import ilLogo from "../assets/il_lapis_lazuli.svg"
 import livLogo from "../assets/liv_garnet.svg"
 import ninaLogo from "../assets/nina_labradorite.svg"
-import noneLogo from "../assets/none_logo.svg"
+import noneLogo from "../assets/black_onyx_.svg"
 import yunseulLogo from "../assets/yunseul_rhodonite.svg"
 
 export default function Photo ({num, publicID, guess, updateGuess, answerCheck, answer, triesComplete, freqArr}) {
