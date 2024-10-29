@@ -197,7 +197,7 @@ function App() {
       dataAvail && localStorage.triesComplete == "false" ?
         <div className=" w-screen text-center text-lg relative h-full font-dosis">
           
-          <Header showModal={showModal} setShowModal={setShowModal} />
+          <Header showModal={showModal} setShowModal={setShowModal} hide={false} />
 
           <div className="flex-col mx-auto sm:w-9/12 relative h-[calc(100vh-80px)] place-content-center">
 

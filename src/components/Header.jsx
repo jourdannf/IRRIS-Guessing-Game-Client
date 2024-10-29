@@ -1,4 +1,4 @@
-export default function Header ({showModal, setShowModal}) {
+export default function Header ({showModal, setShowModal, hide}) {
     return (
         <div id="header" className={`bg-fuchsia-950 h-20 w-screen relative ${showModal ? "blur" : ""} flex justify-between px-12 place-items-center`}>
             <h1 className={`relative text-5xl font-bold text-left text-white hidden sm:block font-lilita`}>IRRISGUESS</h1>
@@ -18,7 +18,7 @@ export default function Header ({showModal, setShowModal}) {
             </div>
             
 
-            <h3 className={`absolute right-5 sm:right-12 top-28 font-semibold ${showModal ? "blur" : ""} text-lg sm:text-2xl`}>Tries Left: {localStorage.triesLeft}</h3>
+            <h3 className={`absolute right-5 sm:right-12 top-28 font-semibold ${showModal ? "blur" : ""} text-lg sm:text-2xl ${hide ? "hidden" : ""}`}>Tries Left: {localStorage.triesLeft}</h3>
           </div>  
     )
 }
