@@ -46,7 +46,7 @@ export default function Tabs ({tabs, width, photoIndex, guess, updateGuess}) {
         
             <ul className="tabs flex">
                 {tabs.map((tab, index) => {
-                    return <Tab key={index} label={tab.label} onClick={() => handleTabClick(index)} isActive={index === activeTab} />
+                    return <Tab key={index} label={tab.label} onClick={() => handleTabClick(index)} isActive={index === activeTab} path={tab.path} />
                 })}
             </ul>
         

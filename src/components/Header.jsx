@@ -1,10 +1,11 @@
+import { IKImage } from "imagekitio-react"
 import irrisLogo from "../assets/irrislogo_transparent.svg"
 
 export default function Header ({showModal, setShowModal, hide}) {
     return (
         <div id="header" className={`bg-fuchsia-950 h-20 w-screen relative ${showModal ? "blur" : ""} flex justify-between px-5 sm:px-12 place-items-center`}>
             <h1 className={`relative text-5xl font-bold text-left text-white hidden sm:block font-lilita`}>IRRISGUESS</h1>
-            <img src={irrisLogo} alt="" className="block sm:hidden w-11 bg-white rounded-lg" />
+            <IKImage urlEndpoint="https://ik.imagekit.io/y5ttrxfvx/" path={`irrislogo_transparent.svg`} width="268" className="block sm:hidden w-11 bg-white rounded-lg" />
 
             <div className="flex h-12 w-64 justify-end">
                 
@@ -16,9 +17,9 @@ export default function Header ({showModal, setShowModal, hide}) {
                 <svg width="30" height="30" viewBox="0 0 0.78 0.78" xmlns="http://www.w3.org/2000/svg"><path d="M0.375 0.075a0.3 0.3 0 1 0 0 0.6 0.3 0.3 0 0 0 0 -0.6m-0.265 0.035A0.375 0.375 0 1 1 0.64 0.64 0.375 0.375 0 0 1 0.11 0.11z" fill="#ffffff"/><path d="M0.417 0.488H0.337V0.445c0 -0.074 0.018 -0.085 0.052 -0.104q0.005 -0.003 0.011 -0.007c0.027 -0.017 0.048 -0.039 0.048 -0.071 0 -0.036 -0.028 -0.059 -0.062 -0.059 -0.032 0 -0.062 0.015 -0.064 0.057H0.236c0.002 -0.086 0.07 -0.131 0.15 -0.131 0.086 0 0.146 0.054 0.146 0.131 0 0.052 -0.026 0.086 -0.068 0.111l-0.009 0.005c-0.03 0.018 -0.038 0.023 -0.038 0.067zm0.006 0.075a0.05 0.05 0 0 1 -0.05 0.05 0.05 0.05 0 0 1 -0.046 -0.069 0.05 0.05 0 0 1 0.046 -0.03c0.027 0 0.05 0.022 0.05 0.049z" fill="#ffffff"/></svg>
                 </button>
 
-                <button type="button" className="border-white rounded-3xl border-2 text-center text-base font-bold p-4 leading-none text-white ml-2 hover:bg-fuchsia-800">
+                <a href="https://ko-fi.com/jourcreations" type="button" className="border-white rounded-3xl border-2 text-center text-base font-bold p-4 leading-none text-white ml-2 hover:bg-fuchsia-800">
                 Support Me
-                </button>
+                </a>
             </div>
             
 

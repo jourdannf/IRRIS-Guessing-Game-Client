@@ -1,9 +1,9 @@
 import { useState } from "react";
-// import ilLogo from "../assets/il_lapis_lazuli.svg"
+import { IKImage } from "imagekitio-react";
 
-export default function Tab ({label, onClick, isActive}) {
+export default function Tab ({onClick, isActive, path}) {
 
     return (
-        <li className={`rounded-md ${isActive ? "bg-gray-300" : "hover:bg-gray-200"} border border-stone-300 p-1 mx-1 hover:cursor-pointer`} onClick={onClick}> <img src={label} alt="" width="48px" /> </li>
+        <li className={`rounded-md ${isActive ? "bg-gray-300" : "hover:bg-gray-200"} border border-stone-300 p-1 mx-1 hover:cursor-pointer`} onClick={onClick}> <IKImage urlEndpoint="https://ik.imagekit.io/y5ttrxfvx/" path={`${path}.svg`} width="48px"/> </li>
     )
 }

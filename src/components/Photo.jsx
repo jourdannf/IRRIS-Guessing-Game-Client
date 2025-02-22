@@ -1,25 +1,17 @@
-import { AdvancedImage } from "@cloudinary/react";
-import { CloudinaryImage } from "@cloudinary/url-gen/index";
-import { Cloudinary } from "@cloudinary/url-gen/index";
+import { IKImage } from "imagekitio-react";
 import { fill, scale } from "@cloudinary/url-gen/actions/resize";
 import { Resize } from "@cloudinary/url-gen/actions/resize";
 import { useState } from "react";
 import Tabs from "./Tabs";
 
-import ilLogo from "../assets/il_lapis_lazuli.svg"
-import livLogo from "../assets/liv_garnet.svg"
-import ninaLogo from "../assets/nina_labradorite.svg"
-import noneLogo from "../assets/black_onyx_.svg"
-import yunseulLogo from "../assets/yunseul_rhodonite.svg"
-
-export default function Photo ({num, publicID, guess, updateGuess, answerCheck, answer, triesComplete, freqArr}) {
+export default function Photo ({num, path, guess, updateGuess, answerCheck, answer, triesComplete, freqArr}) {
 
     const tabData = [
-        {label: ilLogo},
-        {label: livLogo},
-        {label: yunseulLogo},
-        {label: ninaLogo},
-        {label: noneLogo}
+        {path: "il_lapis_lazuli"},
+        {path: "liv_garnet"},
+        {path: "yunseul_rhodonite"},
+        {path: "nina_labradorite"},
+        {path: "black_onyx_"}
     ]
     
     function selectMember (e) {
@@ -53,19 +45,12 @@ export default function Photo ({num, publicID, guess, updateGuess, answerCheck, 
         return string[0].toUpperCase() + string.slice(1).toLowerCase();
     }
 
-    const cld = new Cloudinary({
-        cloud: {
-            cloudName: "djkg6bufv"
-        }
-    });
 
-
-    const memberImg = cld.image(publicID);
+    console.log(path);
     return (
         <div className="shrink-0">
-        
-            <AdvancedImage className="rounded-md mx-auto" width="268" cldImg={memberImg} />
-            {/* <img src={publicID} alt={`Cropped Photo of Member ${num + 1}`} /> */}
+
+            <IKImage className="rounded-md mx-auto" urlEndpoint="https://ik.imagekit.io/y5ttrxfvx/" path={`${path}.svg`} width="268" />
             <br />
 
             <Tabs tabs={tabData} width="268px" photoIndex={num} guess={guess} updateGuess={updateGuess} />

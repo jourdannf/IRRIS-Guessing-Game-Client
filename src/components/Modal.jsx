@@ -1,3 +1,5 @@
+import { IKImage } from "imagekitio-react";
+
 export default function Modal ({showModal, logoMap, setShowModal}) {
     console.log(showModal);
     function titleCase(string){
@@ -43,7 +45,7 @@ export default function Modal ({showModal, logoMap, setShowModal}) {
 
                     <div className='flex flex-wrap'>
                         {Object.keys(logoMap).map((e, i) => {
-                            return <div key={i} className='text-xl w-28'><img src={logoMap[e]} alt="" width="40px" className='inline' /> {titleCase(e)} </div>
+                            return <div key={i} className='text-xl w-28'> <IKImage urlEndpoint="https://ik.imagekit.io/y5ttrxfvx/" path={`${logoMap[e]}.svg`} width="40px" className="inline"/> {titleCase(e)} </div>
                         })}       
                     </div>
                     

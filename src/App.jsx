@@ -1,6 +1,4 @@
 import { useState, useEffect } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import Photo from './components/Photo'
 import PhotoContainer from './components/PhotoContainer'
 import axios from 'axios'
@@ -9,12 +7,6 @@ import ComingSoonPage from './pages/ComingSoonPage'
 import WinnerPage from './pages/WinnerPage'
 import LoserPage from './pages/LoserPage'
 import { data } from 'autoprefixer'
-
-import ilLogo from "./assets/il_lapis_lazuli.svg"
-import livLogo from "./assets/liv_garnet.svg"
-import ninaLogo from "./assets/nina_labradorite.svg"
-import yunseulLogo from "./assets/yunseul_rhodonite.svg"
-import noneLogo from "./assets/black_onyx_.svg"
 
 import Modal from './components/Modal'
 import Header from './components/Header'
@@ -33,17 +25,17 @@ function App() {
   const [showModal, setShowModal] = useState(JSON.parse(localStorage.getItem("showModal")));
 
   const logoMap = {
-    "i.l": ilLogo,
-    "liv": livLogo,
-    "yunseul": yunseulLogo,
-    "nina": ninaLogo,
-    "neither": noneLogo
+    "i.l": "il_lapis_lazuli",
+    "liv": "liv_garnet",
+    "yunseul": "yunseul_rhodonite",
+    "nina": "nina_labradorite",
+    "neither": "black_onyx_"
 }
 
   useEffect(() => {
 
     (async () => {
-      const result = await axios.get(`http://localhost:3001/v1/puzzle/${new Date(dateNow.replace(/-/g, '/')).toISOString().split('T')[0]}`)
+      const result = await axios.get(`https://irris-guessing-game-server.onrender.com/v1/puzzle/${new Date(dateNow.replace(/-/g, '/')).toISOString().split('T')[0]}`)
         .catch((e) => {
           console.log(e);
         })
@@ -195,16 +187,16 @@ function App() {
  
     return (
 
-      dataAvail && localStorage.triesComplete == "false" ?
+      dataAvail && localStorage.triesComplete == "false" && localStorage.solved == "false" ?
         <div className=" w-screen text-center text-lg relative h-full font-dosis">
           
           <Header showModal={showModal} setShowModal={setShowModal} hide={false} />
 
-          <div className="flex-col mx-auto sm:w-9/12 relative h-[calc(100vh-80px)] place-content-center">
+          <div className="flex-col mx-auto sm:w-9/12 relative h-[calc(100vh-80px)] place-content-center mt-20">
 
             <PhotoContainer showModal={showModal}>
               {pictures.map((picID, i) => {
-                return <Photo key={picID} publicID={picID} num={i} guess={guess} updateGuess={setGuess} answerCheck={correctGuess} answer={answer} triesComplete={localStorage.triesComplete} freqArr={freqArr} />
+                return <Photo key={picID} path={picID} num={i} guess={guess} updateGuess={setGuess} answerCheck={correctGuess} answer={answer} triesComplete={localStorage.triesComplete} freqArr={freqArr} />
               })}
             </PhotoContainer>
 
