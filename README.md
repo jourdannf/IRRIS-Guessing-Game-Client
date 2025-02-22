@@ -16,7 +16,7 @@ For more about the server-side of the application and how to download, please vi
 3. Players can only play one game per day; a new game will be generated at midnight local time
 
 ## Demo
-Link coming soon...
+Link to where you can play it: https://irris-guessing-game-client.onrender.com/
 
 ## Future Implementations
 
