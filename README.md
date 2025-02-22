@@ -8,7 +8,7 @@ IRRIS Photo Guessing Game is a full-stack application where players are given th
 - Randomly cropped photos created with PyTorch RandomCrop
 - Answer sheet generated using Python
 
-For more about the server-side of the application and how to download, please visit the documentation here: 
+For more about the server-side of the application, you can view the code here: https://github.com/jourdannf/IRRIS-Guessing-Game-Server
 
 ### Rules
 1. Players cannot guess the same person per photo more than once
